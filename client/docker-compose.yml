@@ -7,6 +7,7 @@ services:
   peer_ssh:
     image: opny/peer-ssh-client
     volumes:
-      - ./:/app
+      - ./example:/app/example
+      - ./src:/app/src
     networks:
       - shared

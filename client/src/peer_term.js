@@ -5,8 +5,19 @@ import { WebLinksAddon } from 'xterm-addon-web-links';
 import Peer from 'peerjs';
 
 export class PeerTerm {
-    constructor({serverPeer, peerid=null, domid="terminal"}) {
-        this.termID = document.getElementById(domid)
+    constructor({serverPeer = null, peerid=null, domid="terminal"}) {
+        this.serverPeer = serverPeer
+        this.peerid = peerid
+        this.domid = domid
+        this.peerOptions = {
+            debug: 3,
+        }
+        this.connOptions = {
+            serialization: "binary-utf8",
+        }        
+    }
+    open() {
+        this.termID = document.getElementById(this.domid)
         this.term = new Terminal({
             rows: 35,
             fontSize: 22,
@@ -20,16 +31,9 @@ export class PeerTerm {
         })
         this.term.loadAddon(new WebLinksAddon());
         this.term.open(this.termID)
-
-        const peerOptions = {
-            debug: 3,
-        }
-        this.peer = new Peer(peerid, peerOptions)
-        console.log("connecting to %s (id=%s)", serverPeer, peerid)
-        const connOptions = {
-            serialization: "binary-utf8",
-        }
-        this.conn = this.peer.connect(serverPeer, connOptions);
+        this.peer = new Peer(this.peerid, this.peerOptions)
+        console.log("connecting to %s (id=%s)", this.serverPeer, this.peerid)
+        this.conn = this.peer.connect(this.serverPeer, this.connOptions);
         this.ready = false
         this.conn.on('open', () => {
             this.ready = true

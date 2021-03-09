@@ -1,8 +1,8 @@
 
 dev:
-	./node_modules/.bin/parcel index.html
+	./node_modules/.bin/parcel example/index.html
 build:
-	./node_modules/.bin/parcel build index.html
+	./node_modules/.bin/parcel build example/index.html
 
 docker/build:
 	docker build . -t opny/peer-ssh-client
