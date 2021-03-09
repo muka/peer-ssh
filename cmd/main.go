@@ -43,5 +43,24 @@ func main() {
 		}
 	})
 
+	// client, err := sshclient.DialWithPasswd("pi4:22", "pi", "raspberry")
+	// if err != nil {
+	// 	panic(err)
+	// }
+	// defer client.Close()
+
+	// out, err := client.Cmd("tail -n 100  /var/log/dmesg").Output()
+
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	// fmt.Println(string(out))
+
+	// for {
+	// 	conn1.Send([]byte("Test"), false)
+	// 	<-time.After(time.Second)
+	// }
+
 	select {}
 }
