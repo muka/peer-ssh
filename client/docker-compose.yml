@@ -4,15 +4,9 @@ networks:
     external: true
 
 services:
-  uncloud:
-    image: caddy:2
+  peer_ssh:
+    image: opny/peer-ssh-client
     volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - ./data/caddy:/config
-      - ./data/caddy:/data
-      - ./:/public
+      - ./:/app
     networks:
       - shared
-    restart: unless-stopped
-    # ports:
-    #   - 80:80
