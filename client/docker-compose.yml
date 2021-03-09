@@ -1,0 +1,18 @@
+version: "3.1"
+networks:
+  shared:
+    external: true
+
+services:
+  uncloud:
+    image: caddy:2
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./data/caddy:/config
+      - ./data/caddy:/data
+      - ./:/public
+    networks:
+      - shared
+    restart: unless-stopped
+    # ports:
+    #   - 80:80
