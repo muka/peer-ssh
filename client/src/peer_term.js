@@ -13,6 +13,7 @@ export class PeerTerm {
             debug: 3,
         }
         this.connOptions = {
+            host: "peer.uncloud.site",
             serialization: "binary-utf8",
         }        
     }
