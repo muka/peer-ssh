@@ -5,20 +5,33 @@ import { WebLinksAddon } from 'xterm-addon-web-links';
 import Peer from 'peerjs';
 
 export class PeerTerm {
-    constructor({serverPeer = null, peerid=null, domid="terminal"}) {
+    constructor(options = {}) {
+        const {
+            serverPeer = null,
+            peerid = null,
+            domid = "terminal",
+            host = "peer.uncloud.site",
+            debug = 3,
+        } = options
         this.serverPeer = serverPeer
         this.peerid = peerid
         this.domid = domid
+        this.termID = document.getElementById(this.domid)
         this.peerOptions = {
-            debug: 3,
+            host,
+            debug,
         }
         this.connOptions = {
-            host: "peer.uncloud.site",
             serialization: "binary-utf8",
-        }        
+        }
     }
-    open() {
-        this.termID = document.getElementById(this.domid)
+    open(serverPeer = null) {
+        if (serverPeer) {
+            this.serverPeer = serverPeer
+        }
+        if (!this.serverPeer) {
+            throw new Error("Server peer is missing")
+        }
         this.term = new Terminal({
             rows: 35,
             fontSize: 22,
@@ -72,9 +85,11 @@ export class PeerTerm {
     close() {
         if (this.term) {
             this.term.dispose()
+            this.term = null
         }
         if (this.peer) {
             this.peer.close()
+            this.peer = null
         }
     }
 
