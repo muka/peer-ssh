@@ -1,6 +1,7 @@
 
 dev:
 	./node_modules/.bin/parcel example/index.html
+
 build:
 	./node_modules/.bin/parcel build example/index.html
 
