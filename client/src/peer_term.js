@@ -10,17 +10,21 @@ export class PeerTerm {
             serverPeer = null,
             peerid = null,
             domid = "terminal",
-            host = "peer.uncloud.site",
-            debug = 3,
+            peerOptions = {
+                // host: "localhost",
+                // port: "9000",
+                // secure: false,
+                host: "peer.uncloud.site",
+                port: "443",
+                secure: true,
+                debug: 3,
+            },
         } = options
         this.serverPeer = serverPeer
         this.peerid = peerid
         this.domid = domid
         this.termID = document.getElementById(this.domid)
-        this.peerOptions = {
-            host,
-            debug,
-        }
+        this.peerOptions = peerOptions
         this.connOptions = {
             serialization: "binary-utf8",
         }
@@ -88,7 +92,7 @@ export class PeerTerm {
             this.term = null
         }
         if (this.peer) {
-            this.peer.close()
+            this.peer.destroy()
             this.peer = null
         }
     }
